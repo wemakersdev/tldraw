@@ -1,4 +1,14 @@
-import { GeoShapeGeoStyle, preventDefault, track, useEditor, useValue } from '@tldraw/editor'
+import {
+	Editor,
+	GeoShapeGeoStyle,
+	TLGeoShape,
+	TLTextShape,
+	createShapeId,
+	preventDefault,
+	track,
+	useEditor,
+	useValue,
+} from '@tldraw/editor'
 import classNames from 'classnames'
 import React, { memo } from 'react'
 import { useBreakpoint } from '../../hooks/useBreakpoint'
@@ -14,6 +24,69 @@ import { Button } from '../primitives/Button'
 import * as M from '../primitives/DropdownMenu'
 import { kbdStr } from '../primitives/shared'
 import { ToggleToolLockedButton } from './ToggleToolLockedButton'
+
+type ViewPort = 'mobile' | 'tablet' | 'desktop'
+
+interface ViewportDimensions {
+	height: number
+	width: number
+}
+
+const handleAddViewport = (editor: Editor, viewport: ViewPort): void => {
+	const id = createShapeId(viewport)
+	editor.focus()
+
+	const dimensions: Record<ViewPort, ViewportDimensions> = {
+		mobile: { height: 667, width: 375 },
+		tablet: { height: 1024, width: 768 },
+		desktop: { height: 720, width: 1280 },
+	}
+
+	// Create a rectangle shape for the viewport
+	const xPosition = 128 + Math.random() * 500
+	const yPosition = 128 + Math.random() * 500
+
+	editor.createShapes<TLGeoShape>([
+		{
+			id,
+			type: 'geo',
+			x: xPosition,
+			y: yPosition,
+			props: {
+				geo: 'rectangle',
+				w: dimensions[viewport].width,
+				h: dimensions[viewport].height,
+				dash: 'draw',
+				color: 'black',
+				size: 'm',
+			},
+		},
+	])
+
+	// Create a text shape for the title
+	const titleId = createShapeId(viewport + 'title')
+	editor.createShapes<TLTextShape>([
+		{
+			id: titleId,
+			type: 'text',
+			x: xPosition, // positioned in the center of the viewport
+			y: yPosition - 40, // positioned slightly above the viewport rectangle
+
+			props: {
+				text: viewport,
+				color: 'black',
+				size: 'm',
+				align: 'middle',
+				w: dimensions[viewport].width,
+			},
+		},
+	])
+
+	editor.groupShapes([id, titleId])
+
+	// Zoom the camera to fit the shape
+	editor.zoomToFit()
+}
 
 /** @public */
 export const Toolbar = memo(function Toolbar() {
@@ -164,6 +237,66 @@ export const Toolbar = memo(function Toolbar() {
 								))}
 								{/* Everything Else */}
 								<div className="tlui-toolbar__divider" />
+								<Button
+									className="tlui-toolbar__tools__button"
+									onClick={() => {
+										handleAddViewport(editor, 'mobile')
+									}}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="15"
+										height="15"
+										viewBox="0 0 15 15"
+									>
+										<path
+											fill="currentColor"
+											fill-rule="evenodd"
+											d="M4 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-10ZM4.5 1A1.5 1.5 0 0 0 3 2.5v10A1.5 1.5 0 0 0 4.5 14h6a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 10.5 1h-6ZM6 11.65a.35.35 0 1 0 0 .7h3a.35.35 0 1 0 0-.7H6Z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</Button>
+
+								<Button
+									className="tlui-toolbar__tools__button"
+									onClick={() => {
+										handleAddViewport(editor, 'tablet')
+									}}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+									>
+										<path
+											fill="currentColor"
+											d="M19.749 4a2.25 2.25 0 0 1 2.25 2.25v11.502a2.25 2.25 0 0 1-2.25 2.25H4.25A2.25 2.25 0 0 1 2 17.752V6.25A2.25 2.25 0 0 1 4.25 4h15.499Zm0 1.5H4.25a.75.75 0 0 0-.75.75v11.502c0 .415.336.75.75.75h15.499a.75.75 0 0 0 .75-.75V6.25a.75.75 0 0 0-.75-.75Zm-9.499 10h3.5a.75.75 0 0 1 .102 1.494L13.75 17h-3.5a.75.75 0 0 1-.102-1.493l.102-.007h3.5h-3.5Z"
+										/>
+									</svg>
+								</Button>
+
+								<Button
+									className="tlui-toolbar__tools__button"
+									onClick={() => {
+										handleAddViewport(editor, 'desktop')
+									}}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="15"
+										height="15"
+										viewBox="0 0 15 15"
+									>
+										<path
+											fill="currentColor"
+											fill-rule="evenodd"
+											d="M2 4.25A.25.25 0 0 1 2.25 4h10.5a.25.25 0 0 1 .25.25v7.25H2V4.25ZM2.25 3C1.56 3 1 3.56 1 4.25V12H0v.5a.5.5 0 0 0 .5.5h14a.5.5 0 0 0 .5-.5V12h-1V4.25C14 3.56 13.44 3 12.75 3H2.25Z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</Button>
 								{/* {itemsInPanel.map(({ toolItem }) => (
 									<ToolbarButton
 										key={toolItem.id}
