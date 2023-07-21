@@ -19,7 +19,7 @@ export default {
 				}
 			)
 		} catch (e) {
-			let pathname = new URL(request.url).pathname
+			const pathname = new URL(request.url).pathname
 			return new Response(`"${pathname}" not found`, {
 				status: 404,
 				statusText: 'not found',
