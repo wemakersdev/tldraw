@@ -38,6 +38,7 @@
 		"refresh-assets": "lazy refresh-assets",
 		"build": "lazy build",
 		"dev": "lazy run dev --filter='{,bublic/}apps/examples' --filter='{,bublic/}packages/tldraw'",
+		"dev-uidraw": "lazy run dev --filter='{,bublic/}apps/uidraw' --filter='{,bublic/}packages/tldraw'",
 		"dev-vscode": "code ./apps/vscode/extension && lazy run dev --filter='{,bublic/}apps/vscode/{extension,editor}'",
 		"build-types": "lazy inherit",
 		"build-api": "lazy build-api",

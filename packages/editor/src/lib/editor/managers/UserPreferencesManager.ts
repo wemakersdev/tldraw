@@ -17,7 +17,8 @@ export class UserPreferencesManager {
 	}
 
 	@computed get isDarkMode() {
-		return this.userPreferences.isDarkMode
+		// return this.userPreferences.isDarkMode
+		return true
 	}
 
 	@computed get animationSpeed() {

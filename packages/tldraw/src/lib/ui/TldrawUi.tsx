@@ -8,11 +8,8 @@ import { DebugPanel } from './components/DebugPanel'
 import { Dialogs } from './components/Dialogs'
 import { FollowingIndicator } from './components/FollowingIndicator'
 import { HelpMenu } from './components/HelpMenu'
-import { MenuZone } from './components/MenuZone'
-import { NavigationZone } from './components/NavigationZone/NavigationZone'
 import { ExitPenMode } from './components/PenModeToggle'
 import { StopFollowing } from './components/StopFollowing'
-import { StylePanel } from './components/StylePanel/StylePanel'
 import { ToastViewport, Toasts } from './components/Toasts'
 import { Toolbar } from './components/Toolbar/Toolbar'
 import { Button } from './components/primitives/Button'
@@ -150,7 +147,7 @@ const TldrawUiContent = React.memo(function TldrawUI({
 					<>
 						<div className="tlui-layout__top">
 							<div className="tlui-layout__top__left">
-								<MenuZone />
+								{/* <MenuZone /> */}
 								<div className="tlui-helper-buttons">
 									<ExitPenMode />
 									<BackToContent />
@@ -161,15 +158,13 @@ const TldrawUiContent = React.memo(function TldrawUI({
 							<div className="tlui-layout__top__right">
 								{shareZone}
 								{breakpoint >= 5 && !isReadonlyMode && (
-									<div className="tlui-style-panel__wrapper">
-										<StylePanel />
-									</div>
+									<div className="tlui-style-panel__wrapper">{/* <StylePanel /> */}</div>
 								)}
 							</div>
 						</div>
 						<div className="tlui-layout__bottom">
 							<div className="tlui-layout__bottom__main">
-								<NavigationZone />
+								{/* <NavigationZone /> */}
 								<Toolbar />
 								{breakpoint >= 4 && <HelpMenu />}
 							</div>

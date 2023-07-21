@@ -3,7 +3,7 @@ import '@tldraw/tldraw/tldraw.css'
 import { useYjsStore } from './useYjsStore'
 
 const HOST_URL =
-	process.env.NODE_ENV === 'development' ? 'ws://localhost:1234' : 'wss://demos.yjs.dev'
+	process.env.NODE_ENV === 'development' ? 'ws://localhost:1234' : 'wss://y-websocket.xn--lkv.com'
 
 export default function YjsExample() {
 	const store = useYjsStore({

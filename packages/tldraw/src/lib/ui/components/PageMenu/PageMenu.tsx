@@ -253,9 +253,9 @@ export const PageMenu = function PageMenu() {
 					className="tlui-page-menu__trigger tlui-menu__trigger"
 					data-testid="main.page-menu"
 					icon="chevron-down"
-					title={currentPage.name}
+					title={currentPage?.name}
 				>
-					<div className="tlui-page-menu__name">{currentPage.name}</div>
+					<div className="tlui-page-menu__name">{currentPage?.name}</div>
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent side="bottom" align="start" sideOffset={6}>

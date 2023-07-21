@@ -6,9 +6,7 @@ import { useReadonly } from '../../hooks/useReadonly'
 import { TLUiToolbarItem, useToolbarSchema } from '../../hooks/useToolbarSchema'
 import { TLUiToolItem } from '../../hooks/useTools'
 import { useTranslation } from '../../hooks/useTranslation/useTranslation'
-import { ActionsMenu } from '../ActionsMenu'
 import { DuplicateButton } from '../DuplicateButton'
-import { MobileStylePanel } from '../MobileStylePanel'
 import { RedoButton } from '../RedoButton'
 import { TrashButton } from '../TrashButton'
 import { UndoButton } from '../UndoButton'
@@ -122,7 +120,7 @@ export const Toolbar = memo(function Toolbar() {
 									<RedoButton />
 									<TrashButton />
 									<DuplicateButton />
-									<ActionsMenu />
+									{/* <ActionsMenu /> */}
 								</div>
 							)}
 							<ToggleToolLockedButton activeToolId={activeToolId} />
@@ -166,16 +164,16 @@ export const Toolbar = memo(function Toolbar() {
 								))}
 								{/* Everything Else */}
 								<div className="tlui-toolbar__divider" />
-								{itemsInPanel.map(({ toolItem }) => (
+								{/* {itemsInPanel.map(({ toolItem }) => (
 									<ToolbarButton
 										key={toolItem.id}
 										item={toolItem}
 										title={getTitle(toolItem)}
 										isSelected={isActiveTLUiToolItem(toolItem, activeToolId, geoState)}
 									/>
-								))}
+								))} */}
 								{/* Overflowing Shapes */}
-								{itemsInDropdown.length ? (
+								{itemsInDropdown.length < 0 ? (
 									<>
 										{/* Last selected (or first) item from the overflow */}
 										<ToolbarButton
@@ -189,7 +187,7 @@ export const Toolbar = memo(function Toolbar() {
 											)}
 										/>
 										{/* The dropdown to select everything else */}
-										<M.Root id="toolbar overflow" modal={false}>
+										{/* <M.Root id="toolbar overflow" modal={false}>
 											<M.Trigger>
 												<Button
 													className="tlui-toolbar__tools__button tlui-toolbar__overflow"
@@ -201,18 +199,18 @@ export const Toolbar = memo(function Toolbar() {
 											<M.Content side="top" align="center">
 												<OverflowToolsContent toolbarItems={itemsInDropdown} />
 											</M.Content>
-										</M.Root>
+										</M.Root> */}
 									</>
 								) : null}
 							</>
 						)}
 					</div>
 				</div>
-				{breakpoint < 5 && !isReadonly && (
+				{/* {breakpoint < 5 && !isReadonly && (
 					<div className="tlui-toolbar__tools">
 						<MobileStylePanel />
 					</div>
-				)}
+				)} */}
 			</div>
 		</div>
 	)
