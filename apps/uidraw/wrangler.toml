@@ -1,7 +1,7 @@
-name = "uidraw"
+name = "uidraw-extended"
 main = "src/worker.ts"
 compatibility_date = "2023-07-17"
-route = "https://drawinterface.com/*"
+route = "https://x.drawinterface.com/*"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.

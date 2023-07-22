@@ -306,10 +306,10 @@ export const Toolbar = memo(function Toolbar() {
 									/>
 								))} */}
 								{/* Overflowing Shapes */}
-								{itemsInDropdown.length < 0 ? (
+								{itemsInDropdown.length ? (
 									<>
 										{/* Last selected (or first) item from the overflow */}
-										<ToolbarButton
+										{/* <ToolbarButton
 											key={dropdownFirstItem.toolItem.id}
 											item={dropdownFirstItem.toolItem}
 											title={getTitle(dropdownFirstItem.toolItem)}
@@ -318,9 +318,9 @@ export const Toolbar = memo(function Toolbar() {
 												activeToolId,
 												geoState
 											)}
-										/>
+										/> */}
 										{/* The dropdown to select everything else */}
-										{/* <M.Root id="toolbar overflow" modal={false}>
+										<M.Root id="toolbar overflow" modal={false}>
 											<M.Trigger>
 												<Button
 													className="tlui-toolbar__tools__button tlui-toolbar__overflow"
@@ -330,9 +330,14 @@ export const Toolbar = memo(function Toolbar() {
 												/>
 											</M.Trigger>
 											<M.Content side="top" align="center">
-												<OverflowToolsContent toolbarItems={itemsInDropdown} />
+												<OverflowToolsContent
+													toolbarItems={[
+														...itemsInPanel.filter((item) => !itemsInDropdown.includes(item)),
+														...itemsInDropdown,
+													]}
+												/>
 											</M.Content>
-										</M.Root> */}
+										</M.Root>
 									</>
 								) : null}
 							</>
